@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:id="@+id/backButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="20dp"
+            android:backgroundTint="@color/black"
+            android:background="@drawable/ic_back" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/repositoryFetchLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@id/backButton"
+            app:layout_constraintBottom_toTopOf="@id/addRepositoryButton">
+
+
+            <TextView
+                android:id="@+id/addRepository"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_repositories"
+                android:textSize="20sp"
+                android:layout_margin="20dp"
+                android:textColor="@color/raisin_black"
+                android:fontFamily="@font/roboto_bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+
+
+            <TextView
+                android:id="@+id/repoOwnerNameView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/owner"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/raisin_black"
+                android:textSize="16sp"
+                android:layout_margin="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/addRepository"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/repoOwnerInputBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rectangular_border"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/repoOwnerNameView">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/repoOwnerName"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="16sp"
+                    android:background="@color/transparent"
+                    android:paddingEnd="14dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="10dp"
+                    android:textColor="@color/black"
+                    android:imeOptions="actionNext"
+                    android:singleLine="false"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/repositoryNameView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/repo_name"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/raisin_black"
+                android:textSize="16sp"
+                android:layout_margin="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/repoOwnerInputBox" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/repositoryNameInputBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rectangular_border"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/repositoryNameView">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/repositoryName"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="16sp"
+                    android:background="@color/transparent"
+                    android:paddingEnd="14dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="10dp"
+                    android:textColor="@color/black"
+                    android:imeOptions="actionDone"
+                    android:singleLine="false"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/repoInfoCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:cardMaxElevation="8dp"
+                android:layout_margin="13dp"
+                app:layout_constraintTop_toBottomOf="@id/repositoryNameInputBox">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_margin="18dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.constraintlayout.utils.widget.ImageFilterView
+                        android:id="@+id/repoAvatarIcon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:layout_constraintCircleRadius="30dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:tint="@color/black"
+                        app:srcCompat="@drawable/ic_launcher_foreground" />
+
+                    <TextView
+                        android:id="@+id/cardRepositoryName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/repo_name"
+                        app:layout_constraintStart_toEndOf="@id/repoAvatarIcon"
+                        android:layout_marginStart="10dp"
+                        android:textSize="14sp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textColor="@color/raisin_black" />
+
+
+                    <TextView
+                        android:id="@+id/cardRepositoryOwner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/owner"
+                        app:layout_constraintStart_toEndOf="@id/repoAvatarIcon"
+                        android:layout_marginStart="10dp"
+                        android:textSize="12sp"
+                        app:layout_constraintTop_toBottomOf="@id/cardRepositoryName"
+                        android:fontFamily="@font/roboto"
+                        android:textColor="@color/text_grey" />
+
+                    <TextView
+                        android:id="@+id/cardRepoDescriptionTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_grey"
+                        android:fontFamily="@font/roboto"
+                        android:textSize="12sp"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/description"
+                        app:layout_constraintStart_toEndOf="@id/repoAvatarIcon"
+                        app:layout_constraintTop_toBottomOf="@+id/cardRepositoryOwner"
+                         />
+
+
+                    <TextView
+                        android:id="@+id/cardRepoDescriptionText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_grey"
+                        android:fontFamily="@font/roboto"
+                        android:textSize="12sp"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/description"
+                        app:layout_constraintStart_toEndOf="@id/cardRepoDescriptionTextView"
+                        app:layout_constraintTop_toBottomOf="@+id/cardRepositoryOwner"
+                        />
+
+                    <TextView
+                        android:id="@+id/createdAtTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_grey"
+                        android:fontFamily="@font/roboto"
+                        android:textSize="12sp"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/created_at"
+                        app:layout_constraintStart_toEndOf="@id/repoAvatarIcon"
+                        app:layout_constraintTop_toBottomOf="@+id/cardRepoDescriptionText"
+                        />
+
+
+                    <TextView
+                        android:id="@+id/createdAt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_grey"
+                        android:fontFamily="@font/roboto"
+                        android:textSize="12sp"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/repo_name"
+                        app:layout_constraintStart_toEndOf="@id/createdAtTextView"
+                        app:layout_constraintTop_toBottomOf="@+id/cardRepoDescriptionText"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/repoNotFoundLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:visibility="gone"
+                app:layout_constraintBaseline_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/repositoryNameInputBox">
+
+                <ImageView
+                    android:id="@+id/repoNotFoundView"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/repo_not_found"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    android:id="@+id/repoNotFoundText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/repo_not_found"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:textColor="@color/red"
+                    android:fontFamily="@font/roboto_medium"
+                    app:layout_constraintTop_toBottomOf="@id/repoNotFoundView"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/addRepositoryButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="20dp"
+            android:padding="12dp"
+            android:text="@string/add_repositories"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/repositoryFetchLayout" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

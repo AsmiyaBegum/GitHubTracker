@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/LandingFragment">
+
+    <fragment
+        android:id="@+id/LandingFragment"
+        android:name="com.ab.githubtrackerapplication.gitRepo.LandingFragment"
+        android:label="@string/git_repo_landing_fragment_label"
+        tools:layout="@layout/fragment_git_repo_landing">
+
+        <action
+            android:id="@+id/action_LandingFragment_to_AddRepoFragment"
+            app:destination="@id/AddRepoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/AddRepoFragment"
+        android:name="com.ab.githubtrackerapplication.gitRepo.AddRepoFragment"
+        android:label="@string/add_repo_fragment_label"
+        tools:layout="@layout/fragment_add_repo">
+
+        <action
+            android:id="@+id/action_AddRepoFragment_to_LandingFragment"
+            app:destination="@id/LandingFragment" />
+    </fragment>
+</navigation>
