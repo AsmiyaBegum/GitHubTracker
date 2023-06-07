@@ -3,7 +3,7 @@ package com.ab.githubtrackerapplication.gitRepo
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ab.githubtrackerapplication.model.GitRespositoryDetail
+import com.ab.githubtrackerapplication.model.GitRepositoryDetail
 import com.ab.githubtrackerapplication.service.GitRepoService
 import com.ab.githubtrackerapplication.util.Utils
 import com.ab.githubtrackerapplication.util.Utils.evictResult
@@ -15,25 +15,23 @@ class GitRepoViewModel : ViewModel() {
     private val networkScope = CoroutineScope(Dispatchers.IO)
 
 
-    private val _repositoryDetail = MutableLiveData<GitRespositoryDetail>()
-    val repositoryDetail: LiveData<GitRespositoryDetail>
+    private val _repositoryDetail = MutableLiveData<GitRepositoryDetail>()
+    val repositoryDetail: LiveData<GitRepositoryDetail>
         get() = _repositoryDetail
 
     private val _errorDetail = MutableLiveData<Unit>()
     val errorDetail: LiveData<Unit>
         get() = _errorDetail
 
-    private val _repositoryDetailList = MutableLiveData<List<GitRespositoryDetail>>()
-    val repositoryDetailList: LiveData<List<GitRespositoryDetail>>
+    private val _repositoryDetailList = MutableLiveData<List<GitRepositoryDetail>>()
+    val repositoryDetailList: LiveData<List<GitRepositoryDetail>>
         get() = _repositoryDetailList
 
     fun fetchRepositoryDetail(owner: String,repoName : String) {
-
         networkScope.launch {
             try {
                 val resultUser = gitRepositoryService.getRepositoryDetail(owner,repoName)
-
-//                withContext(Dispatchers.Main) {
+                withContext(Dispatchers.Main) {
                     resultUser.onSuccess { repoDetail ->
                         _repositoryDetail.value = repoDetail
                         Utils.realmDefaultInstance { realm ->
@@ -45,9 +43,18 @@ class GitRepoViewModel : ViewModel() {
                     resultUser.onFailure {
                         _errorDetail.value = Unit
                     }
-//                }
+                }
             } catch (e: Exception) {
                 // Handle the error scenario
+            }
+        }
+    }
+
+    fun addRepoDetail(repoDetail : GitRepositoryDetail,startHomeFragment: (Unit) -> Unit ) {
+        networkScope.launch {
+            gitRepositoryService.addRepoDetail(repoDetail)
+            withContext(Dispatchers.Main){
+                startHomeFragment(Unit)
             }
         }
     }
@@ -57,7 +64,7 @@ class GitRepoViewModel : ViewModel() {
             try {
               val resultUser =   Utils.realmDefaultInstance { realm ->
                    return@realmDefaultInstance realm.evictResult(
-                        realm.where(GitRespositoryDetail::class.java)
+                        realm.where(GitRepositoryDetail::class.java)
                             .findAll()
                     )
                 }

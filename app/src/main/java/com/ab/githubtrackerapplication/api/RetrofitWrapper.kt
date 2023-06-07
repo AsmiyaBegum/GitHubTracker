@@ -1,5 +1,7 @@
 package com.ab.githubtrackerapplication.api
 
+import com.google.gson.FieldNamingPolicy
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -23,8 +25,12 @@ object RetrofitWrapper {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gsonBuilder().create()))
             .build()
+    }
+
+    private fun gsonBuilder(): GsonBuilder {
+        return GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
     }
 
     val gitRepoApiInterface: GitRepoApiInterface by lazy {

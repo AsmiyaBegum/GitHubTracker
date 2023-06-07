@@ -2,20 +2,20 @@ package com.ab.githubtrackerapplication.util
 
 import com.ab.githubtrackerapplication.R
 import com.ab.githubtrackerapplication.databinding.RespositoryListRowBinding
-import com.ab.githubtrackerapplication.model.GitRespositoryDetail
+import com.ab.githubtrackerapplication.model.GitRepositoryDetail
 import com.jakewharton.rxbinding.view.clicks
 import rx.android.schedulers.AndroidSchedulers
 
 object AdapterUtils {
 
-    fun setUpGitReposListAdapter(gitRepositoryList : List<GitRespositoryDetail>,delegate: GitRepoListDelegate) : GenericAdapter<GitRespositoryDetail, RespositoryListRowBinding,List<Unit>>{
+    fun setUpGitReposListAdapter(gitRepositoryList : List<GitRepositoryDetail>, delegate: GitRepoListDelegate) : GenericAdapter<GitRepositoryDetail, RespositoryListRowBinding,List<Unit>>{
 
-        val adapter = GenericAdapter(R.layout.respository_list_row,object : GenericAdapterInteraction<GitRespositoryDetail, RespositoryListRowBinding,List<Unit>>(){
+        val adapter = GenericAdapter(R.layout.respository_list_row,object : GenericAdapterInteraction<GitRepositoryDetail, RespositoryListRowBinding,List<Unit>>(){
 
             override fun bindingViewHolder(
                 binding: RespositoryListRowBinding,
-                data: GitRespositoryDetail,
-                holder: GenericAdapter.GenericViewHolder<GitRespositoryDetail, RespositoryListRowBinding, List<Unit>>,
+                data: GitRepositoryDetail,
+                holder: GenericAdapter.GenericViewHolder<GitRepositoryDetail, RespositoryListRowBinding, List<Unit>>,
                 additionalData: List<Unit>?
             ) {
                 binding.repoDetail = data
@@ -27,7 +27,7 @@ object AdapterUtils {
                     }
             }
 
-            override fun onClicked(data: GitRespositoryDetail, binding: RespositoryListRowBinding) {
+            override fun onClicked(data: GitRepositoryDetail, binding: RespositoryListRowBinding) {
                delegate.onRepoClicked(data.htmlUrl)
             }
         })
@@ -38,7 +38,7 @@ object AdapterUtils {
 
     interface GitRepoListDelegate{
         fun onRepoClicked(repoUrl : String)
-        fun shareRepoDetail(repoDetail : GitRespositoryDetail)
+        fun shareRepoDetail(repoDetail : GitRepositoryDetail)
     }
 
 }

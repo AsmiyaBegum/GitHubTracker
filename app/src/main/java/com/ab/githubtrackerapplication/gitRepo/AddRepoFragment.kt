@@ -6,10 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.ab.githubtrackerapplication.R
 import com.ab.githubtrackerapplication.custom.LottieDialogFragment
 import com.ab.githubtrackerapplication.databinding.FragmentAddRepoBinding
-import com.ab.githubtrackerapplication.model.GitRespositoryDetail
+import com.ab.githubtrackerapplication.model.GitRepositoryDetail
 import com.ab.githubtrackerapplication.util.Constants
 import com.ab.githubtrackerapplication.util.Utils
 import com.ab.githubtrackerapplication.util.Utils.formatDate
@@ -19,6 +20,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding.view.clicks
+import com.jakewharton.rxbinding.widget.textChanges
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 
 /**
@@ -36,6 +42,7 @@ class AddRepoFragment : Fragment() {
     private lateinit var lottieDialog : LottieDialogFragment
 
     private var snackBarOpened : Snackbar? = null
+    private lateinit var repositoryDetail: GitRepositoryDetail
 
     private val snackBar : (Snackbar) -> Unit ={ snack ->
         snackBarOpened = snack
@@ -48,16 +55,40 @@ class AddRepoFragment : Fragment() {
 
     private fun bind(){
 
+        Observable.merge(binding.repoOwnerName.textChanges(),binding.repositoryName.textChanges())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                dismissPreviousSnackBar()
+                binding.addRepositoryButton.text = getString(R.string.fetch_repository) // reset tp fetch repo when input value changed
+            }
+
         binding.addRepositoryButton.clicks()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                if(Utils.checkInternetConnection()){
-                    dismissPreviousSnackBar()
-                    startDialogAndFetchRepository()
-                }else{
-                    Utils.snackBarListener(binding.addRepositoryButton,getString(R.string.device_offline),snackBar)
-                }
+                validateAndAddRepo()
             }
+
+        binding.backButton.clicks()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                findNavController().navigate(R.id.action_AddRepoFragment_to_LandingFragment)
+            }
+    }
+
+    private fun validateAndAddRepo() {
+        when {
+            binding.addRepositoryButton.text.toString() == getString(R.string.add_repository) -> addRepoAndMoveToHomeFragment()
+            !Utils.checkInternetConnection() -> Utils.snackBarListener(binding.addRepositoryButton,getString(R.string.device_offline),snackBar)
+            binding.repoOwnerName.text.toString().isNullOrBlank() -> Utils.snackBarListener(binding.addRepositoryButton,getString(R.string.enter_owner_name),snackBar)
+            binding.repositoryName.text.toString().isNullOrBlank() -> Utils.snackBarListener(binding.addRepositoryButton,getString(R.string.enter_repo_name),snackBar)
+            else -> startDialogAndFetchRepository()
+        }
+    }
+
+    private fun addRepoAndMoveToHomeFragment(){
+        viewModel.addRepoDetail(repositoryDetail) {
+                findNavController().navigate(R.id.action_AddRepoFragment_to_LandingFragment)
+        }
     }
 
 
@@ -65,9 +96,7 @@ class AddRepoFragment : Fragment() {
         lottieDialog = LottieDialogFragment.newInstance(R.raw.search)
         lottieDialog.isCancelable = false
         lottieDialog.show(requireFragmentManager(), "lottie_dialog")
-
-        viewModel.fetchRepositoryDetail(binding.repoOwnerName.text.toString(),binding.cardRepositoryName.text.toString())
-
+        viewModel.fetchRepositoryDetail(binding.repoOwnerName.text.toString().trim(),binding.repositoryName.text.toString().trim())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,11 +125,17 @@ class AddRepoFragment : Fragment() {
             lottieDialog.dismiss()
             showRepoCardDetail(true)
             bindRepoCardDetail(repoDetail)
+            updateFooterButton()
         }
 
         viewModel.errorDetail.observe(viewLifecycleOwner) {
+            lottieDialog.dismiss()
             showRepoCardDetail(false)
         }
+    }
+
+    private fun updateFooterButton() {
+        binding.addRepositoryButton.text = getString(R.string.add_repository)
     }
 
     private fun showRepoCardDetail(show : Boolean){
@@ -108,13 +143,13 @@ class AddRepoFragment : Fragment() {
         binding.repoNotFoundLayout.showVisibility(!show)
     }
 
-    private fun bindRepoCardDetail(repoDetail : GitRespositoryDetail){
-
+    private fun bindRepoCardDetail(repoDetail : GitRepositoryDetail){
+        repositoryDetail = repoDetail
         binding.cardRepositoryName.text = repoDetail.name
         binding.cardRepoDescriptionText.text = repoDetail.description
         binding.cardRepositoryOwner.text = repoDetail.owner?.login
         binding.createdAt.formatDate(repoDetail.createdAt,Constants.DATE_FORMAT_DDMMYYY)
-        loadAvatarImg(repoDetail.htmlUrl)
+        loadAvatarImg(repoDetail.owner?.avatarUrl?:"")
     }
 
     private fun loadAvatarImg(avatarUrl : String){

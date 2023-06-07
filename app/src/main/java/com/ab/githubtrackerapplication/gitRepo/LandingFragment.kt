@@ -1,6 +1,7 @@
 package com.ab.githubtrackerapplication.gitRepo
 
 import android.content.Intent
+import android.database.Observable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,10 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ab.githubtrackerapplication.MainActivity
 import com.ab.githubtrackerapplication.R
 import com.ab.githubtrackerapplication.databinding.FragmentGitRepoLandingBinding
-import com.ab.githubtrackerapplication.model.GitRespositoryDetail
+import com.ab.githubtrackerapplication.model.GitRepositoryDetail
 import com.ab.githubtrackerapplication.util.AdapterUtils
+import com.ab.githubtrackerapplication.util.Utils.showVisibility
 import com.jakewharton.rxbinding.view.clicks
-import rx.Observable
+import com.jakewharton.rxbinding.view.visibility
 import rx.android.schedulers.AndroidSchedulers
 
 /**
@@ -69,7 +71,9 @@ class LandingFragment : Fragment(),AdapterUtils.GitRepoListDelegate {
         }
     }
 
-    private fun bindRepositoryDetail(repoDetail : List<GitRespositoryDetail>){
+    private fun bindRepositoryDetail(repoDetail : List<GitRepositoryDetail>){
+        binding.repositoryEmptyLayout.showVisibility(repoDetail.isEmpty())
+        binding.repositoryLayout.showVisibility(repoDetail.isNotEmpty())
         binding.repositoryList.adapter = AdapterUtils.setUpGitReposListAdapter(repoDetail,this)
     }
 
@@ -80,11 +84,12 @@ class LandingFragment : Fragment(),AdapterUtils.GitRepoListDelegate {
 
     override fun onRepoClicked(repoUrl: String) {
         // open webview
+        binding.webview.showVisibility(true)
         binding.webview.webViewClient = WebViewClient()
         binding.webview.loadUrl(repoUrl)
     }
 
-    override fun shareRepoDetail(repoDetail: GitRespositoryDetail) {
+    override fun shareRepoDetail(repoDetail: GitRepositoryDetail) {
         // share repo
 
         val intent = Intent(Intent.ACTION_SEND)

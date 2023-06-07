@@ -5,7 +5,7 @@
     <data>
         <variable
             name="repoDetail"
-            type="com.ab.githubtrackerapplication.model.GitRespositoryDetail" />
+            type="com.ab.githubtrackerapplication.model.GitRepositoryDetail" />
     </data>
 
 

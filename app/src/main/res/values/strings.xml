@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GitHub Tracker Application</string>
+    <string name="app_name">GitTrackr</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="git_repo_landing_fragment_label">Landing Screen</string>
@@ -10,13 +10,16 @@
     <string name="add_now">Add Now</string>
     <string name="owner">Repository Owner</string>
     <string name="repo_name">Repository Name</string>
-    <string name="add_repositories">Add Repository</string>
+    <string name="add_repository">Add Repository</string>
+    <string name="fetch_repository">Fetch Repository</string>
     <string name="description">Description : </string>
     <string name="created_at">Created at : </string>
     <string name="repo_not_found">Repository is not found! Kindly check and retry.</string>
     <string name="key_okay">Okay</string>
     <string name="device_offline">Device Offline</string>
+    <string name="enter_owner_name">Kindly enter repo owner name.</string>
+    <string name="enter_repo_name">Kindly enter repo name.</string>
     <string name="check_out_link">Check out this link</string>
     <string name="share_link_via">Share link via</string>
-    <string name="share_repo_detail">Repository : %1$s \n Owner : %2$s \n %3$s</string>
+    <string name="share_repo_detail">Repository : %1$s \nOwner : %2$s \n %3$s</string>
 </resources>

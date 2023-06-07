@@ -2,12 +2,13 @@ package com.ab.githubtrackerapplication.model
 
 import com.google.gson.annotations.Expose
 import io.realm.RealmObject
+import io.realm.annotations.Ignore
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.RealmClass
 import java.util.*
 
 @RealmClass
-open class GitRespositoryDetail  : RealmObject() {
+open class GitRepositoryDetail  : RealmObject() {
     @PrimaryKey
     @Expose open var id : Long = 0L
     @Expose open var owner : Owner?  = Owner()
@@ -22,4 +23,6 @@ open class Owner : RealmObject(){
     @PrimaryKey
     @Expose open var  id : Long  = 0L
     @Expose open var login : String =""
+    @Ignore
+    @Expose open var avatarUrl : String = ""
 }

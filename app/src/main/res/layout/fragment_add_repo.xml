@@ -17,34 +17,37 @@
             android:id="@+id/backButton"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_margin="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
             android:backgroundTint="@color/black"
             android:background="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/addRepository"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_repository"
+            android:textSize="20sp"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/raisin_black"
+            android:fontFamily="@font/roboto_bold"
+            app:layout_constraintStart_toEndOf="@id/backButton"
+            app:layout_constraintTop_toTopOf="@id/backButton"
+            app:layout_constraintBottom_toBottomOf="@id/backButton"
+            />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/repositoryFetchLayout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/backButton"
-            app:layout_constraintBottom_toTopOf="@id/addRepositoryButton">
-
-
-            <TextView
-                android:id="@+id/addRepository"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/add_repositories"
-                android:textSize="20sp"
-                android:layout_margin="20dp"
-                android:textColor="@color/raisin_black"
-                android:fontFamily="@font/roboto_bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
-
-
+            app:layout_constraintBottom_toTopOf="@id/repoNotFoundLayout">
 
             <TextView
                 android:id="@+id/repoOwnerNameView"
@@ -56,7 +59,7 @@
                 android:textSize="16sp"
                 android:layout_margin="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/addRepository"/>
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/repoOwnerInputBox"
@@ -244,51 +247,49 @@
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/repoNotFoundLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:visibility="gone"
-                app:layout_constraintBaseline_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/repositoryNameInputBox">
-
-                <ImageView
-                    android:id="@+id/repoNotFoundView"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:src="@drawable/repo_not_found"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
-
-                <TextView
-                    android:id="@+id/repoNotFoundText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/repo_not_found"
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:textColor="@color/red"
-                    android:fontFamily="@font/roboto_medium"
-                    app:layout_constraintTop_toBottomOf="@id/repoNotFoundView"/>
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/repoNotFoundLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/addRepositoryButton"
+            app:layout_constraintTop_toBottomOf="@id/repositoryFetchLayout">
+
+
+        <ImageView
+            android:id="@+id/repoNotFoundView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/repo_not_found"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/repoNotFoundText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/repo_not_found"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textColor="@color/red"
+            android:fontFamily="@font/roboto_medium"
+            app:layout_constraintTop_toBottomOf="@id/repoNotFoundView"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
             android:id="@+id/addRepositoryButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="20dp"
+            android:layout_margin="20dp"
             android:padding="12dp"
-            android:text="@string/add_repositories"
+            android:text="@string/fetch_repository"
             android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/repositoryFetchLayout" />
+            app:layout_constraintBottom_toBottomOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
