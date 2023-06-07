@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GitTrackr</string>
+    <string name="app_name">GitTracker</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="git_repo_landing_fragment_label">Landing Screen</string>

@@ -23,6 +23,5 @@ open class Owner : RealmObject(){
     @PrimaryKey
     @Expose open var  id : Long  = 0L
     @Expose open var login : String =""
-    @Ignore
     @Expose open var avatarUrl : String = ""
 }

@@ -84,6 +84,12 @@ object Utils {
         this.visibility = if (condition) View.VISIBLE else View.GONE
     }
 
+    fun List<View>.showView(condition: Boolean){
+        this.forEach {
+            it.showVisibility(condition)
+        }
+    }
+
     fun <T> Realm.evictResult(obj: RealmResults<T>): List<T> where T : RealmObject {
         return if (obj.isManaged) this.copyFromRealm(obj) else obj
     }

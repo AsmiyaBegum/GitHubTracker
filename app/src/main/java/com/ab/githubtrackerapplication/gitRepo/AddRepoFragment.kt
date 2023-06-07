@@ -1,6 +1,7 @@
 package com.ab.githubtrackerapplication.gitRepo
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import com.ab.githubtrackerapplication.model.GitRepositoryDetail
 import com.ab.githubtrackerapplication.util.Constants
 import com.ab.githubtrackerapplication.util.Utils
 import com.ab.githubtrackerapplication.util.Utils.formatDate
+import com.ab.githubtrackerapplication.util.Utils.showView
 import com.ab.githubtrackerapplication.util.Utils.showVisibility
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -21,9 +23,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding.view.clicks
 import com.jakewharton.rxbinding.widget.textChanges
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 
@@ -79,8 +78,8 @@ class AddRepoFragment : Fragment() {
         when {
             binding.addRepositoryButton.text.toString() == getString(R.string.add_repository) -> addRepoAndMoveToHomeFragment()
             !Utils.checkInternetConnection() -> Utils.snackBarListener(binding.addRepositoryButton,getString(R.string.device_offline),snackBar)
-            binding.repoOwnerName.text.toString().isNullOrBlank() -> Utils.snackBarListener(binding.addRepositoryButton,getString(R.string.enter_owner_name),snackBar)
-            binding.repositoryName.text.toString().isNullOrBlank() -> Utils.snackBarListener(binding.addRepositoryButton,getString(R.string.enter_repo_name),snackBar)
+            binding.repoOwnerName.text.toString().isBlank() -> Utils.snackBarListener(binding.addRepositoryButton,getString(R.string.enter_owner_name),snackBar)
+            binding.repositoryName.text.toString().isBlank() -> Utils.snackBarListener(binding.addRepositoryButton,getString(R.string.enter_repo_name),snackBar)
             else -> startDialogAndFetchRepository()
         }
     }
@@ -149,7 +148,12 @@ class AddRepoFragment : Fragment() {
         binding.cardRepoDescriptionText.text = repoDetail.description
         binding.cardRepositoryOwner.text = repoDetail.owner?.login
         binding.createdAt.formatDate(repoDetail.createdAt,Constants.DATE_FORMAT_DDMMYYY)
+        Log.d("avatar",repoDetail.owner?.avatarUrl?:"")
         loadAvatarImg(repoDetail.owner?.avatarUrl?:"")
+
+            //handle visibility
+
+        listOf(binding.cardRepoDescriptionTextView,binding.cardRepoDescriptionText).showView(!repoDetail.description.isNullOrBlank())
     }
 
     private fun loadAvatarImg(avatarUrl : String){

@@ -23,7 +23,7 @@ class LottieDialogFragment : DialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FetchDataDialogLayouBinding.inflate(inflater, container, false)
         // Inflate the layout for this fragment
         return binding.root

@@ -1,24 +1,22 @@
 package com.ab.githubtrackerapplication.gitRepo
 
 import android.content.Intent
-import android.database.Observable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ab.githubtrackerapplication.MainActivity
 import com.ab.githubtrackerapplication.R
 import com.ab.githubtrackerapplication.databinding.FragmentGitRepoLandingBinding
 import com.ab.githubtrackerapplication.model.GitRepositoryDetail
 import com.ab.githubtrackerapplication.util.AdapterUtils
 import com.ab.githubtrackerapplication.util.Utils.showVisibility
 import com.jakewharton.rxbinding.view.clicks
-import com.jakewharton.rxbinding.view.visibility
 import rx.android.schedulers.AndroidSchedulers
 
 /**
@@ -44,7 +42,7 @@ class LandingFragment : Fragment(),AdapterUtils.GitRepoListDelegate {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentGitRepoLandingBinding.inflate(inflater, container, false)
         return binding.root
@@ -53,7 +51,7 @@ class LandingFragment : Fragment(),AdapterUtils.GitRepoListDelegate {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(GitRepoViewModel::class.java)
+        viewModel = ViewModelProvider(this)[GitRepoViewModel::class.java]
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -82,8 +80,15 @@ class LandingFragment : Fragment(),AdapterUtils.GitRepoListDelegate {
         _binding = null
     }
 
+    fun onBackPressed() {
+        if (binding.webview.isVisible) {
+            binding.webview.showVisibility(false)
+        } else {
+            requireActivity().finish()
+        }
+    }
     override fun onRepoClicked(repoUrl: String) {
-        // open webview
+        // open webView
         binding.webview.showVisibility(true)
         binding.webview.webViewClient = WebViewClient()
         binding.webview.loadUrl(repoUrl)
