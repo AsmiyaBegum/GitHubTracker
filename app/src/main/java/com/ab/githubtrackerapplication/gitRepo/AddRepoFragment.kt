@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.ab.githubtrackerapplication.MainActivity
 import com.ab.githubtrackerapplication.R
 import com.ab.githubtrackerapplication.custom.LottieDialogFragment
 import com.ab.githubtrackerapplication.databinding.FragmentAddRepoBinding
@@ -131,6 +132,12 @@ class AddRepoFragment : Fragment() {
             lottieDialog.dismiss()
             showRepoCardDetail(false)
         }
+
+        hideAddRepoIcon()
+    }
+
+    private fun hideAddRepoIcon(){
+        (activity as MainActivity).binding.addRepository.showVisibility(false)
     }
 
     private fun updateFooterButton() {

@@ -290,6 +290,8 @@
             android:text="@string/fetch_repository"
             android:textSize="14sp"
             android:textStyle="bold"
+            android:background="@color/yellow"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent" />
 
 
