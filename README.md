@@ -43,3 +43,19 @@ The application will have 2 screen landing screen and github repo adding screen.
 ● The fetched repository should be added to the landing screen, including the repository name, description, and any other relevant information. 
 
 ● The repository details should be stored in the local storage, ensuring that it can be accessed and viewed on the landing screen the next time the user opens the application.
+
+
+**Tech Stack**
+
+  -Kotlin
+  -Navigation Component
+  -Constraint Layout
+  -Retrofit
+  -GSON 
+  -OkHttp client
+  -ViewModel and LiveData
+  -Coroutines
+  -Realm
+  -Lottie Animation
+  -RXJava
+  -Glide
