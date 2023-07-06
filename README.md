@@ -48,14 +48,26 @@ The application will have 2 screen landing screen and github repo adding screen.
 **Tech Stack**
 
   -Kotlin
+  
   -Navigation Component
+  
   -Constraint Layout
+
   -Retrofit
+  
   -GSON 
+  
   -OkHttp client
+  
   -ViewModel and LiveData
+  
   -Coroutines
+  
   -Realm
+  
   -Lottie Animation
+  
   -RXJava
+  
   -Glide
+  
