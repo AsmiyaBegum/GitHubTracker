@@ -3,8 +3,7 @@
 **Track Github Repositories**
 
 **Purpose :**
-
-    This application allows users to conveniently track their favourite GitHub repositories. Users can add repositories of their choice and easily view the list within the app. Additionally, they can effortlessly share the repository list with other applications such as WhatsApp and Gmail. 
+This application allows users to conveniently track their favourite GitHub repositories. Users can add repositories of their choice and easily view the list within the app. Additionally, they can effortlessly share the repository list with other applications such as WhatsApp and Gmail. 
 
 **Goals :**
 
