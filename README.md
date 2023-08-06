@@ -4,7 +4,29 @@
 
 **Purpose :**
 
-This application allows users to conveniently track their favourite GitHub repositories. Users can add repositories of their choice and easily view the list within the app. Additionally, they can effortlessly share the repository list with other applications such as WhatsApp and Gmail. 
+This application allows users to conveniently track their favourite GitHub repositories. Users can add repositories of their choice and easily view the list within the app. Additionally, they can effortlessly share the repository list with other applications such as WhatsApp and Gmail.
+
+**Application Screenshots**
+
+<img width="250" height="450" src="https://github.com/AsmiyaBegum/GitHubTracker/blob/master/applicationGIF/home_screen.gif">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width="250" height="450" src="https://github.com/AsmiyaBegum/GitHubTracker/blob/master/applicationGIF/repo_view_screen.gif">
+
+**Tech Stack ✨**
+
+  - Kotlin
+  - Constraint Layout
+  - Navigation Component
+  - RxJava
+  - Data Binding
+  - View Binding
+  - Retrofit
+  - GSON
+  - OKHttp Client
+  - ViewModel and LiveData
+  - Coroutines
+  - Realm
+  - Lottie Animation
+  - RXJava
+  - Glide
 
 **Goals :**
 
@@ -43,31 +65,3 @@ The application will have 2 screen landing screen and github repo adding screen.
 ● The fetched repository should be added to the landing screen, including the repository name, description, and any other relevant information. 
 
 ● The repository details should be stored in the local storage, ensuring that it can be accessed and viewed on the landing screen the next time the user opens the application.
-
-
-**Tech Stack**
-
-  -Kotlin
-  
-  -Navigation Component
-  
-  -Constraint Layout
-
-  -Retrofit
-  
-  -GSON 
-  
-  -OkHttp client
-  
-  -ViewModel and LiveData
-  
-  -Coroutines
-  
-  -Realm
-  
-  -Lottie Animation
-  
-  -RXJava
-  
-  -Glide
-  
